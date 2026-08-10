@@ -1,0 +1,419 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Arial,
+        "Trebuchet MS",
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe6f2,
+            #eee5ff
+        );
+
+    color: #704f64;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* =========================
+   JOGO
+========================= */
+
+.game {
+    width: 100%;
+    max-width: 700px;
+
+    text-align: center;
+}
+
+header {
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: #ed65a7;
+
+    font-size:
+        clamp(30px, 7vw, 50px);
+
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #9b7d91;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   INFORMAÇÕES
+========================= */
+
+.info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+}
+
+.info-box {
+    background: white;
+
+    padding: 13px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(120, 70, 100, .12);
+
+    color: #9b7d91;
+
+    font-size: 14px;
+}
+
+.info-box strong {
+    display: block;
+
+    color: #ed65a7;
+
+    font-size: 23px;
+
+    margin-top: 4px;
+}
+
+
+/* =========================
+   TABULEIRO
+========================= */
+
+.board {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+
+    width: 100%;
+
+    max-width: 600px;
+
+    margin: auto;
+}
+
+
+/* =========================
+   CARTA
+========================= */
+
+.card {
+    aspect-ratio: 1 / 1;
+
+    border: none;
+
+    border-radius: 18px;
+
+    cursor: pointer;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform .5s;
+
+    background: transparent;
+
+    padding: 0;
+}
+
+.card.flipped {
+    transform:
+        rotateY(180deg);
+}
+
+.card.matched {
+    transform:
+        rotateY(180deg)
+        scale(.95);
+
+    cursor: default;
+}
+
+
+/* Frente e verso */
+
+.card-front,
+.card-back {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 18px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    backface-visibility: hidden;
+
+    box-shadow:
+        0 7px 15px
+        rgba(120, 70, 100, .15);
+}
+
+
+/* Parte fechada */
+
+.card-back {
+    background:
+        linear-gradient(
+            135deg,
+            #ff80b9,
+            #c79aff
+        );
+
+    color: white;
+
+    font-size: 35px;
+}
+
+.card-back::after {
+    content: "💖";
+}
+
+
+/* Parte aberta */
+
+.card-front {
+    background: white;
+
+    transform:
+        rotateY(180deg);
+
+    font-size:
+        clamp(35px, 8vw, 55px);
+
+    border:
+        3px solid #ffd1e6;
+}
+
+.card.matched .card-front {
+    background: #fff1f8;
+
+    border-color: #ff86bc;
+
+    box-shadow:
+        0 0 20px
+        rgba(255, 105, 180, .4);
+}
+
+
+/* =========================
+   BOTÃO
+========================= */
+
+.restart,
+.win-box button {
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff70b1,
+            #c18aff
+        );
+
+    color: white;
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+    padding:
+        14px 25px;
+
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    margin-top: 25px;
+
+    box-shadow:
+        0 8px 18px
+        rgba(200, 100, 170, .25);
+
+    transition: .2s;
+}
+
+.restart:hover,
+.win-box button:hover {
+    transform:
+        translateY(-3px)
+        scale(1.03);
+}
+
+
+/* =========================
+   VITÓRIA
+========================= */
+
+.win-screen {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(75, 40, 70, .5);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    z-index: 10;
+}
+
+.hidden {
+    display: none;
+}
+
+.win-box {
+    width: min(430px, 100%);
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 40px 30px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px
+        rgba(0, 0, 0, .2);
+
+    animation:
+        aparecer .4s ease;
+}
+
+.trophy {
+    font-size: 75px;
+
+    margin-bottom: 10px;
+}
+
+.win-box h2 {
+    color: #ed65a7;
+
+    font-size: 35px;
+
+    margin-bottom: 10px;
+}
+
+.win-box p {
+    color: #9b7d91;
+
+    margin-bottom: 20px;
+}
+
+.result {
+    background: #fff1f8;
+
+    border-radius: 12px;
+
+    padding: 10px;
+
+    margin: 8px 0;
+
+    color: #856476;
+}
+
+.result strong {
+    color: #ed65a7;
+}
+
+
+/* =========================
+   ANIMAÇÃO
+========================= */
+
+@keyframes aparecer {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(.8)
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media (max-width: 500px) {
+
+    body {
+        padding: 12px;
+    }
+
+    .board {
+        gap: 8px;
+    }
+
+    .card-front,
+    .card-back {
+        border-radius: 13px;
+    }
+
+    .info {
+        gap: 7px;
+    }
+
+    .info-box {
+        padding: 10px 5px;
+
+        font-size: 12px;
+    }
+
+    .info-box strong {
+        font-size: 19px;
+    }
+
+}
